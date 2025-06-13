@@ -1,0 +1,20 @@
+.center-box {
+  margin-top: 100px;
+}
+
+.gradient-button {
+  --background: linear-gradient(to right, #bf1c56, #ff416c);
+  color: white;
+}
+ion-card {
+  margin: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+
+

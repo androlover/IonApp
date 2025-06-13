@@ -1,0 +1,24 @@
+.home-tab-content {
+  --background: #ffffff;
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  height: 100%;            /* full height for vertical centering */
+}
+
+.custom-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.center-box {
+  margin-top: 100px;
+}
+
+.gradient-button {
+  --background: linear-gradient(to right, #bf1c56, #ff416c);
+  color: white;
+}
