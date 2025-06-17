@@ -20,8 +20,12 @@ export class HomePage implements OnInit {
 
   url: string = 'https://localhost:8100/dashboard/home?name=roshan&mobile=1234567890&userid=user12345&date=13-06-2025&appid=yuvaap&eventtype=scratch';
   colleges: string[] = ['Hi Tech','IMS Engeneering','ABES Engineering','Jaypee Institure'];
-
+selectedCityIndex: number | null = null;
   constructor(private router: Router) {}
+
+    selectCity(index: number) {
+    this.selectedCityIndex = index;
+  }
 
   ngOnInit() {
     const params = new URL(this.url).searchParams;

@@ -1,18 +1,22 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Yuvaap</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="content-center">
+<ion-content class="outer-container">
   <div class="inner-box">
     <p><strong>Welcome</strong> {{ name }} ,</p>
     <h6 class="event-heading">Event Type: {{ eventtype }}</h6>
 
-    <div class="city-scroll">
-      <ion-button *ngFor="let city of colleges" class="gradient-button" shape="round" size="small">
-        {{ city }}
+    <!-- Show city buttons before selection -->
+    <div class="city-scroll" *ngIf="selectedCityIndex === null">
+      <ion-button
+        *ngFor="let city of colleges; let i = index"
+        class="gradient-circle-button"
+        expand="block"
+        (click)="selectCity(i)">
+        <div class="button-text">{{ city }}</div>
       </ion-button>
+    </div>
+
+    <!-- Show simple text after selection -->
+    <div *ngIf="selectedCityIndex !== null" class="scratch-message">
+      <p>Please scratch below to win exciting prizes</p>
     </div>
   </div>
 </ion-content>
