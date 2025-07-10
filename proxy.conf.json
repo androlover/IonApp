@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://qaapi.yuvaap.dev",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

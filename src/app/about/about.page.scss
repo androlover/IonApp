@@ -1,50 +1,61 @@
-#container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-
-.center-box {
+.outer-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-
-  height: 100vh;
+  align-items: center;
+  height: 100%;
   text-align: center;
-  padding: 0 20px;
 }
 
-.gradient-button {
-  --background: linear-gradient(to right, #BF1C56, #703171);
-  color: white;
+.inner-box {
+  padding: 20px;  
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
+}
+
+.scratch-text {
   margin-top: 20px;
   font-weight: bold;
-  text-transform: capitalize; 
+  color: #e0006d;
 }
 
-
-.center-box h1::first-letter {
-  text-transform: uppercase; /* capitalize only the first letter */
+.scratch-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 10px;
 }
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.scratch-reward-box {
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: #e0006d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  pointer-events: none;
+}
+.claim-btn-inside {
+  pointer-events: auto; /* allow click */
+  margin-top: 12px;
+  --background: linear-gradient(to right, #bf1c56, #ff416c);
+  color: white;
+  font-weight: bold;
+  text-transform: capitalize;
+  border-radius: 10px;
+  height: 40px;
+  font-size: 14px;
+}
+

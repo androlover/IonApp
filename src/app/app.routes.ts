@@ -16,9 +16,12 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./dashboard/dashboard.page').then((m) => m.DashboardPage), // ✅ fixed
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
       {
         path: 'home',
         loadComponent: () =>

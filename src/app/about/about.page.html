@@ -1,16 +1,33 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>About Page</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="outer-container">
+  <div class="inner-box">
 
-<ion-content class="ion-padding custom-content">
-  <div class="center-box">
-    <h1>Welcome to the About Page!</h1>
+    <!-- Selected College Name -->
+    <p><strong>Selected College:</strong> {{ selectedCity }}</p>
 
-    <ion-button expand="block" class="gradient-button">
-      About
-    </ion-button>
+    <!-- Scratch Section -->
+    <div class="scratch-section">
+      <p class="scratch-text">Please scratch below to win exciting prizes</p>
+
+      <div class="scratch-wrapper">
+        <!-- Scratch canvas -->
+        <canvas #scratchCanvas width="200" height="200"></canvas>
+
+        <!-- Show reward result only after scratching -->
+        <div
+          class="scratch-reward-box"
+          *ngIf="isScratched"
+          style="text-align: center; margin-top: 16px;"
+        >
+          <div *ngIf="rewardScenario === 1">
+            <div class="reward-text" style="margin-bottom: 12px;">15% Off on TrehiOrganics</div>
+            <ion-button class="claim-btn-inside" (click)="claimNow()">Claim Now</ion-button>
+          </div>
+          <div *ngIf="rewardScenario === 2">
+            <div class="reward-text">Sorry, Better Luck Next Time</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </ion-content>
-

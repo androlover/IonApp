@@ -1,27 +1,18 @@
 <ion-content class="outer-container">
   <div class="inner-box">
-    <!-- Welcome message (Always visible) -->
+    <!-- Welcome message -->
     <p><strong>Welcome</strong> {{ name }} ,</p>
     <h6 class="event-heading">Event Type: {{ eventtype }}</h6>
 
-    <!-- College buttons (Always visible) -->
+    <!-- City buttons dynamic - from colleges array (events) -->
     <div class="city-scroll">
       <ion-button
-        *ngFor="let city of colleges; let i = index"
+        *ngFor="let event of colleges"
         class="gradient-circle-button"
         expand="block"
-        (click)="selectCity(i)">
-        <div class="button-text">{{ city }}</div>
+        (click)="goToCityPage(event)">
+        <div class="button-text">{{ event.eventName }}</div>
       </ion-button>
-    </div>
-
-    <!-- Scratch card (Only visible after selection) -->
-    <div *ngIf="selectedCityIndex !== null" class="scratch-section">
-      <p class="scratch-text">Please scratch below to win exciting prizes</p>
-<div class="scratch-wrapper">
-  <div class="scratch-hidden-text" *ngIf="isScratched">15% Off on TrehiOrganics</div>
-  <canvas #scratchCanvas width="200" height="200"></canvas>
-</div>
     </div>
   </div>
 </ion-content>

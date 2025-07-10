@@ -1,144 +1,87 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { FirebaseService } from '../services/firebase.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http'; // ✅ Also import
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, HttpClientModule], // ✅ Fix here
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit, AfterViewInit {
-  @ViewChild('scratchCanvas') scratchCanvas!: ElementRef<HTMLCanvasElement>;
-
-  name: string | null = '';
-  mobile: string | null = '';
-  userid: string | null = '';
-  date: string | null = '';
-  appid: string | null = '';
-  eventtype: string | null = '';
+export class HomePage implements OnInit {
+  name: string = '';
+  mobile: string = '';
+  userid: string = '';
+  date: string = '';
+  appid: string = '';
+  eventtype: string = '';
 
   url: string = 'https://localhost:8100/dashboard/home?name=roshan&mobile=1234567890&userid=user12345&date=13-06-2025&appid=yuvaap&eventtype=scratch';
-  colleges: string[] = ['Hi Tech', 'IMS Engineering', 'ABES Engineering', 'Jaypee Institute'];
-  selectedCityIndex: number | null = null;
 
-  isScratched: boolean = false;
-  rewardScenario: number = 0; // 1 or 2
-  couponCode: string = 'TREHI15';
-  couponUrl: string = 'https://trehiorganics.com/discount';
+  colleges: any[] = [];
 
-  constructor() {}
+  constructor(private router: Router, private http: HttpClient) {
+     try {
+    console.log('✅ HomePage constructor reached!');
+  } catch (e) {
+    console.error('😡 Error in HomePage constructor:', e);
+  }
+  }
 
   ngOnInit() {
     const params = new URL(this.url).searchParams;
-    this.name = params.get('name');
-    this.mobile = params.get('mobile');
-    this.userid = params.get('userid');
-    this.date = params.get('date');
-    this.appid = params.get('appid');
-    this.eventtype = params.get('eventtype');
+    this.name = params.get('name') || '';
+    this.mobile = params.get('mobile') || '';
+    this.userid = params.get('userid') || '';
+    this.date = params.get('date') || '';
+    this.appid = params.get('appid') || '';
+    this.eventtype = params.get('eventtype') || '';
+
+    this.fetchCollegesFromAPI();
   }
 
-  ngAfterViewInit() {
-    if (this.selectedCityIndex !== null) {
-      setTimeout(() => this.setupScratchCard(), 100);
-    }
-  }
-
-  selectCity(index: number) {
-    this.selectedCityIndex = index;
-    this.isScratched = false;
-    this.rewardScenario = 0;
-    setTimeout(() => this.setupScratchCard(), 300);
-  }
-
-  claimNow() {
-    navigator.clipboard.writeText(this.couponCode).then(() => {
-      window.open(this.couponUrl, '_blank');
-    });
-  }
-
-  setupScratchCard() {
-    const canvas = this.scratchCanvas?.nativeElement;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d')!;
-    ctx.fillStyle = '#999';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = 'destination-out';
-
-    let isDrawing = false;
-
-    const scratch = (x: number, y: number) => {
-      ctx.beginPath();
-      ctx.arc(x, y, 20, 0, Math.PI * 2);
-      ctx.fill();
-    };
-
-    const getPos = (e: any) => {
-      const rect = canvas.getBoundingClientRect();
-      if (e.touches) {
-        return {
-          x: e.touches[0].clientX - rect.left,
-          y: e.touches[0].clientY - rect.top
-        };
-      } else {
-        return {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        };
+  fetchCollegesFromAPI() {
+   // const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
+    const apiUrl = '/api/Scratchcard/getAllScratchcardEvents'; // ✅ Local proxy path
+    this.http.get<any>(apiUrl).subscribe({
+      next: (res) => {
+        console.log('API Success:', res);
+        if (res.success == '200' && res.data?.length > 0) {
+          this.colleges = res.data;
+        } else {
+          console.warn('Empty data from API');
+          this.colleges = [];
+        }
+      },
+      error: (err) => {
+        console.error('API Error:', err);
+        this.colleges = [];
       }
-    };
+    });
+  }
 
-    const checkScratchPercentage = () => {
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      let total = imageData.data.length / 4;
-      let cleared = 0;
-
-      for (let i = 0; i < imageData.data.length; i += 4) {
-        if (imageData.data[i + 3] === 0) cleared++;
+  goToCityPage(event: any) {
+    this.router.navigate(['/about'], {
+      queryParams: {
+        name: this.name,
+        mobile: this.mobile,
+        userid: this.userid,
+        date: this.date,
+        appid: this.appid,
+        eventtype: this.eventtype,
+        eventId: event.eventId,
+        eventName: event.eventName,
+        maximumPerson: event.maximumPerson,
+        numberOfWinners: event.numberOfWinners,
+        createdBy: event.createdBy,
+        createdOn: event.createdOn,
+        scheduleDate: event.eventScheduleDate,
+        winners: JSON.stringify(event.winners),
       }
-
-      const percentage = (cleared / total) * 100;
-
-      if (percentage > 50 && !this.isScratched) {
-        this.isScratched = true;
-        this.rewardScenario = Math.random() < 0.5 ? 1 : 2; // 50-50 chance
-      }
-    };
-
-    canvas.addEventListener('mousedown', (e) => {
-      isDrawing = true;
-      const pos = getPos(e);
-      scratch(pos.x, pos.y);
-      checkScratchPercentage();
     });
-
-    canvas.addEventListener('mousemove', (e) => {
-      if (!isDrawing) return;
-      const pos = getPos(e);
-      scratch(pos.x, pos.y);
-      checkScratchPercentage();
-    });
-
-    canvas.addEventListener('mouseup', () => isDrawing = false);
-    canvas.addEventListener('mouseleave', () => isDrawing = false);
-
-    canvas.addEventListener('touchstart', (e) => {
-      isDrawing = true;
-      const pos = getPos(e);
-      scratch(pos.x, pos.y);
-      checkScratchPercentage();
-    });
-
-    canvas.addEventListener('touchmove', (e) => {
-      if (!isDrawing) return;
-      const pos = getPos(e);
-      scratch(pos.x, pos.y);
-      checkScratchPercentage();
-    });
-
-    canvas.addEventListener('touchend', () => isDrawing = false);
   }
 }
