@@ -46,7 +46,9 @@ export class HomePage implements OnInit {
 
   fetchCollegesFromAPI() {
    // const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
-    const apiUrl = '/api/Scratchcard/getAllScratchcardEvents'; // ✅ Local proxy path
+    //const apiUrl = '/api/Scratchcard/getAllScratchcardEvents'; // ✅ Local proxy path
+     const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';  // ✅ Always same
+ 
     this.http.get<any>(apiUrl).subscribe({
       next: (res) => {
         console.log('API Success:', res);
