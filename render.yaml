@@ -1,0 +1,9 @@
+
+staticSites:
+  - name: myWebApp
+    buildCommand: npm install && npm run build
+    publishPath: dist/myWebApp/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /
