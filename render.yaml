@@ -1,9 +1,6 @@
 services:
   - type: web
-    name: my-app
+    name: ionic-app
     env: static
     staticPublishPath: www
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    buildCommand: npm run build -- --configuration production
