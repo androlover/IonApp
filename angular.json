@@ -38,8 +38,7 @@
               "node_modules/@ionic/angular/css/core.css",
               "node_modules/@ionic/angular/css/normalize.css",
               "node_modules/@ionic/angular/css/structure.css",
-              "node_modules/@ionic/angular/css/typography.css",
-              "node_modules/ionicons/dist/ionicons.css"
+              "node_modules/@ionic/angular/css/typography.css"
             ],
             "scripts": [],
             "browser": "src/main.ts"
@@ -123,8 +122,7 @@
               "node_modules/@ionic/angular/css/core.css",
               "node_modules/@ionic/angular/css/normalize.css",
               "node_modules/@ionic/angular/css/structure.css",
-              "node_modules/@ionic/angular/css/typography.css",
-              "node_modules/ionicons/dist/ionicons.css"
+              "node_modules/@ionic/angular/css/typography.css"
             ],
             "scripts": []
           },
@@ -138,7 +136,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
