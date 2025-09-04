@@ -36,3 +36,26 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* --------------------------------------------------------
+   Custom Global Styles
+-------------------------------------------------------- */
+ion-button.gradient-circle-button {
+  --background: linear-gradient(to right, #bf1c56, #ff416c) !important;
+  --border-radius: 50% !important;
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+  --padding-top: 0 !important;
+  --padding-bottom: 0 !important;
+  --color: #fff !important;
+
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px !important;
+  min-height: 100px !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-transform: capitalize !important;
+}
