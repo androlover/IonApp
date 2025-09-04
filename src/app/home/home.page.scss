@@ -1,3 +1,4 @@
+/* Layout containers */
 .outer-container {
   display: flex;
   justify-content: center;
@@ -24,7 +25,7 @@
   margin-top: 20px;
 }
 
-/* ✅ Force apply inside Shadow DOM */
+/* Shadow DOM safe gradient button inside this component */
 :host ::ng-deep .gradient-circle-button {
   --background: linear-gradient(to right, #bf1c56, #ff416c);
   --border-radius: 50%;          
@@ -90,7 +91,7 @@ canvas {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  pointer-events: none; /* allow scratching below */
+  pointer-events: none;
 }
 
 .reward-text {
@@ -99,7 +100,7 @@ canvas {
 }
 
 .claim-btn-inside {
-  pointer-events: auto; /* allow click */
+  pointer-events: auto;
   margin-top: 12px;
   --background: linear-gradient(to right, #bf1c56, #ff416c);
   color: white;
