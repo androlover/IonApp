@@ -24,14 +24,15 @@
   margin-top: 20px;
 }
 
-.gradient-circle-button {
+/* ✅ Force apply inside Shadow DOM */
+:host ::ng-deep .gradient-circle-button {
   --background: linear-gradient(to right, #bf1c56, #ff416c);
-  --border-radius: 50%;          /* ion-button ka border radius */
+  --border-radius: 50%;          
   --padding-start: 0;
   --padding-end: 0;
   --padding-top: 0;
   --padding-bottom: 0;
-  --color: #fff;                 /* text color */
+  --color: #fff;
 
   width: 100px !important;
   height: 100px !important;
@@ -43,7 +44,6 @@
   align-items: center;
   text-transform: capitalize;
 }
-
 
 .button-text {
   color: white;
@@ -109,6 +109,3 @@ canvas {
   height: 40px;
   font-size: 14px;
 }
-
-
-
