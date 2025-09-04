@@ -16,10 +16,10 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 /* --------------------------------------------------------
-   Global Background
+   Global Background (color/gradient, no image)
 -------------------------------------------------------- */
 ion-content::part(native) {
-  background: url('/assets/bg.png') no-repeat center center / cover !important;
+  background: linear-gradient(to bottom, #f7f7f7, #e0e0e0) !important;
 }
 
 /* Global gradient circle button (Shadow DOM safe) */
