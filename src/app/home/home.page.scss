@@ -26,15 +26,24 @@
 
 .gradient-circle-button {
   --background: linear-gradient(to right, #bf1c56, #ff416c);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  --border-radius: 50%;          /* ion-button ka border radius */
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --color: #fff;                 /* text color */
+
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px !important;
+  min-height: 100px !important;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
   text-transform: capitalize;
 }
+
 
 .button-text {
   color: white;
