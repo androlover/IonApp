@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-           "outputPath": "www",
+            "outputPath": "www",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
@@ -32,8 +32,15 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss","src/app/home/home.page.scss", 
-            "src/app/dashboard/dashboard.page.scss","src/theme/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/theme/variables.scss",
+              "node_modules/@ionic/angular/css/core.css",
+              "node_modules/@ionic/angular/css/normalize.css",
+              "node_modules/@ionic/angular/css/structure.css",
+              "node_modules/@ionic/angular/css/typography.css",
+              "node_modules/ionicons/dist/ionicons.css"
+            ],
             "scripts": [],
             "browser": "src/main.ts"
           },
@@ -85,8 +92,8 @@
             }
           },
           "options": {
-  "proxyConfig": "proxy.conf.json"
-},
+            "proxyConfig": "proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -110,7 +117,15 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/theme/variables.scss",
+              "node_modules/@ionic/angular/css/core.css",
+              "node_modules/@ionic/angular/css/normalize.css",
+              "node_modules/@ionic/angular/css/structure.css",
+              "node_modules/@ionic/angular/css/typography.css",
+              "node_modules/ionicons/dist/ionicons.css"
+            ],
             "scripts": []
           },
           "configurations": {
