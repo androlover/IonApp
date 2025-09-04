@@ -32,7 +32,8 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": ["src/global.scss","src/app/home/home.page.scss", 
+            "src/app/dashboard/dashboard.page.scss","src/theme/variables.scss"],
             "scripts": [],
             "browser": "src/main.ts"
           },
