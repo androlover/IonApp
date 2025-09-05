@@ -27,13 +27,13 @@
 
 /* Shadow DOM safe gradient button inside this component */
 :host ::ng-deep .gradient-circle-button {
-  --background: linear-gradient(to right, #bf1c56, #ff416c);
-  --border-radius: 50%;          
-  --padding-start: 0;
-  --padding-end: 0;
-  --padding-top: 0;
-  --padding-bottom: 0;
-  --color: #fff;
+  background: linear-gradient(to right, #bf1c56, #ff416c);
+  border-radius: 50%;          
+  padding-start: 0;
+  padding-end: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #fff;
 
   width: 100px !important;
   height: 100px !important;
@@ -102,7 +102,7 @@ canvas {
 .claim-btn-inside {
   pointer-events: auto;
   margin-top: 12px;
-  --background: linear-gradient(to right, #bf1c56, #ff416c);
+  background: linear-gradient(to right, #bf1c56, #ff416c);
   color: white;
   font-weight: bold;
   text-transform: capitalize;
