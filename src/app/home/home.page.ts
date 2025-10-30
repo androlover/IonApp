@@ -21,8 +21,9 @@ export class HomePage implements OnInit {
   eventtype: string = '';
 
   url: string = 'https://localhost:8100/dashboard/home?name=roshan&mobile=1234567890&userid=user12345&date=13-06-2025&appid=yuvaap&eventtype=scratch';
-
-  colleges: any[] = [];
+ colleges: any[] = [];        // Running events
+upcomingEvents: any[] = [];  // Upcoming events
+pastEvents: any[] = [];      // Past events
 
   constructor(private router: Router, private http: HttpClient) {
      try {
@@ -45,15 +46,42 @@ export class HomePage implements OnInit {
   }
 
   fetchCollegesFromAPI() {
-   // const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
+   const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
     //const apiUrl = '/api/Scratchcard/getAllScratchcardEvents'; // ✅ Local proxy path
-     const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';  // ✅ Always same
+     //const apiUrl = 'https://deflagrable-nondefinitively-adelaide.ngrok-free.dev/api/Scratchcard/getAllScratchcardEvents';  // ✅ Always same
  
     this.http.get<any>(apiUrl).subscribe({
       next: (res) => {
         console.log('API Success:', res);
         if (res.success == '200' && res.data?.length > 0) {
-          this.colleges = res.data;
+
+ res.data.forEach((event: any) => {
+        const scheduleDate = new Date(event.eventScheduleDate);
+        console.log('scdeuleDate',scheduleDate)
+        const expireDate = new Date(event.eventExpireDate);
+        console.log('expireDate',expireDate);
+const today = new Date();
+console.log('today',today)
+        if (scheduleDate > today) {
+
+          console.log('upcoming',"true")
+          // Future event → upcoming
+          this.upcomingEvents.push(event);
+        } 
+        else if (expireDate < today) {
+          // Already expired → past
+          this.pastEvents.push(event);
+           console.log('expired',"true")
+        } 
+        else {
+          // Currently active → running
+          this.colleges.push(event);
+           console.log('running',"true")
+        }
+      });
+
+
+
         } else {
           console.warn('Empty data from API');
           this.colleges = [];
@@ -65,6 +93,16 @@ export class HomePage implements OnInit {
       }
     });
   }
+
+  goToMyCoupons() {
+  // Navigate to Coupons Page
+  this.router.navigate(['/mycoupans']);}
+
+
+  goToPostEvents() {
+  // Navigate to Coupons Page
+  this.router.navigate(['/pastevents']);}
+
 
   goToCityPage(event: any) {
     this.router.navigate(['/about'], {

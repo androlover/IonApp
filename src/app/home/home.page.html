@@ -1,18 +1,80 @@
 <ion-content class="outer-container">
-  <div class="inner-box">
-    <!-- Welcome message -->
-    <p><strong>Welcome</strong> {{ name }} ,</p>
-    <h6 class="event-heading">Event Type: {{ eventtype }}</h6>
 
-    <!-- City buttons dynamic - from colleges array (events) -->
-    <div class="city-scroll">
-      <ion-button
-        *ngFor="let event of colleges"
-        class="gradient-circle-button"
-        expand="block"
-        (click)="goToCityPage(event)">
-        <div class="button-text">{{ event.eventName }}</div>
-      </ion-button>
-    </div>
+  <!-- Welcome + My Coupons -->
+  <ion-grid>
+    <ion-row class="header-row">
+
+      <!-- Welcome text -->
+      <ion-col size="8" class="welcome-col">
+        <span class="welcome-text"><strong>Welcome</strong> {{ name }} ,</span>
+      </ion-col>
+
+      <!-- My Coupons Button -->
+  <ion-col size="4" class="ion-text-right">
+  <ion-button size="small" class="my-coupon-btn" fill="solid" (click)="goToMyCoupons()">
+    My Coupons
+  </ion-button>
+</ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Center Event Type -->
+  <div class="event-type-container">
+    <span class="event-type-label">Event Type: {{ eventtype }}</span>
   </div>
+
+  <!-- 🟢 Running Events -->
+  <h6 class="event-heading-small">Running Events</h6>
+  <div class="city-scroll" *ngIf="(colleges || []).length > 0; else noRunning">
+    <ion-button
+      *ngFor="let event of colleges"
+      class="gradient-circle-button running"
+      expand="block"
+      (click)="goToCityPage(event)">
+      <div class="button-text">
+        {{ event.eventName }}<br />
+        <small>ID: {{ event.eventId }}</small>
+      </div>
+    </ion-button>
+  </div>
+  <ng-template #noRunning>
+    <p class="no-data">No running events</p>
+  </ng-template>
+
+  <!-- 🔴 Past Events -->
+  <h6 class="event-heading-small">Past Events</h6>
+  <div class="city-scroll" *ngIf="(pastEvents || []).length > 0; else noPast">
+    <ion-button
+      *ngFor="let event of pastEvents"
+      class="gradient-circle-button past"
+      expand="block"
+      (click)="goToPostEvents()">
+      <div class="button-text">
+        {{ event.eventName }}<br />
+        <small>ID: {{ event.eventId }}</small>
+      </div>
+    </ion-button>
+  </div>
+  <ng-template #noPast>
+    <p class="no-data">No past events</p>
+  </ng-template>
+
+  <!-- 🔵 Upcoming Events -->
+  <h6 class="event-heading-small">Upcoming Events</h6>
+  <div class="city-scroll" *ngIf="(upcomingEvents || []).length > 0; else noUpcoming">
+    <ion-button
+      *ngFor="let event of upcomingEvents"
+      class="gradient-circle-button upcoming"
+      expand="block"
+      disabled="true">
+      <div class="button-text">
+        {{ event.eventName }}<br />
+        <small>ID: {{ event.eventId }}</small>
+      </div>
+    </ion-button>
+  </div>
+  <ng-template #noUpcoming>
+    <p class="no-data">No upcoming events</p>
+  </ng-template>
+
 </ion-content>

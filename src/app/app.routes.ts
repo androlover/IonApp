@@ -14,6 +14,10 @@ export const routes: Routes = [
     path: 'about',
     loadComponent: () => import('./about/about.page').then((m) => m.AboutPage),
   },
+   {
+    path: 'mycoupans',
+    loadComponent: () => import('./mycoupans/mycoupans.page').then((m) => m.MyCouponsPage),
+  },
   {
     path: 'dashboard',
     children: [
@@ -45,5 +49,9 @@ export const routes: Routes = [
           import('./tabs/profiletab/profile-tab.page').then((m) => m.ProfileTabPage),
       },
     ],
+  },
+  {
+    path: 'pastevents',
+    loadComponent: () => import('./pastevents/pastevents.page').then( m => m.PasteventsPage)
   },
 ];
