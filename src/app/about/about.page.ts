@@ -16,9 +16,11 @@ export class AboutPage implements OnInit, AfterViewInit {
 
   name = '';
   eventtype = '';
+  eventId=0;
   userId = '';
   selectedCity = '';
   winnersList: any[] = [];
+  prizeData: any;
 
   scratchCount = 0;
   scratchReady = false;
@@ -26,8 +28,9 @@ export class AboutPage implements OnInit, AfterViewInit {
   isScratched = false;
 
   rewardScenario = 0; // 1 = winner, 2 = loser
-  couponCode = 'TREHI15';
-  couponUrl = 'https://trehiorganics.com/discount';
+  couponCode = '';
+  couponUrl = '';
+  description='';
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
@@ -36,9 +39,9 @@ export class AboutPage implements OnInit, AfterViewInit {
       this.name = params['name'] || '';
       this.eventtype = params['eventtype'] || '';
       this.userId = params['userid'] || '';
-      this.selectedCity = params['city'] || '';
+      this.selectedCity = params['eventName'] || '';
       this.winnersList = params['winners'] ? JSON.parse(params['winners']) : [];
-
+      this.eventId=params['eventId'];
       console.log("✅ UserId:", this.userId);
       console.log("👑 Winners List:", this.winnersList);
 
@@ -60,7 +63,6 @@ export class AboutPage implements OnInit, AfterViewInit {
         }
 
         this.checkWinner();   // ✅ Check winner after count
-        this.decideScratchStart();
       },
       error: err => {
         console.error("❌ Scratch API Error:", err);
@@ -76,10 +78,67 @@ export class AboutPage implements OnInit, AfterViewInit {
     this.isWinner = this.winnersList.some(
       (w: any) => Number(w?.scratchCount) === Number(this.scratchCount)
     );
+    if(this.isWinner) {
+this.getPrizeDetails(this.eventId,this.scratchCount)
+    }
+    else {
+      this.getPrizeDetails(this.eventId,this.scratchCount)
+    }
+
+    this.decideScratchStart();
 
     console.log("🏆 Is Winner:", this.isWinner);
 
   }
+
+ getPrizeDetails(eventId: number, winnerId: number) {
+  const url = `https://qaapi.yuvaap.dev/api/Scratchcard/GetPrizeDetailOfUser?eventId=18&winnerId=9`;
+console.log("✅ Prize API Response:", eventId , winnerId);
+  this.http.get(url).subscribe({
+    next: (res: any) => {
+      console.log("✅ Prize API Response:", res);
+      this.prizeData = res; // store response
+      this.couponCode=res.couponCode;
+      this.description=res.prizeDescription;
+      this.couponUrl=res.ecomerceUrl
+    },
+    error: (err) => {
+      console.error("❌ API Error:", err);
+    }
+  });
+}
+copyCoupon() {
+  if (!this.couponCode) return;
+
+  navigator.clipboard.writeText(this.couponCode).then(() => {
+    alert("✅ Coupon Copied!");
+  });
+}
+
+
+saveWinnerDetails(userId: string, winnerId: number, eventId: number) {
+  const url = 'https://qaapi.yuvaap.dev/api/Scratchcard/saveWinnerDetails';
+
+  const body = {
+    userId: userId,
+    winnerId: 9,
+    eventId: 18
+  };
+
+  console.log("📤 API Request: ", body);
+
+  return this.http.post(url, body).subscribe({
+    next: (res) => {
+      console.log("✅ API Response: ", res);
+    },
+    error: (err) => {
+      console.log("❌ API Error: ", err);
+    }
+  });
+}
+
+
+
 
   decideScratchStart() {
     if (this.scratchCount >= 3) {
@@ -97,11 +156,20 @@ export class AboutPage implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
-  claimNow() {
-    navigator.clipboard.writeText(this.couponCode).finally(() => {
-      window.open(this.couponUrl, '_blank');
-    });
+claimNow() {
+  if (!this.couponUrl || this.couponUrl.trim() === '') {
+    alert("⚠️ Coupon URL not found!");
+    return;
   }
+
+  let url = this.couponUrl.startsWith("http") 
+            ? this.couponUrl 
+            : "https://" + this.couponUrl;
+
+  navigator.clipboard.writeText(this.couponCode).finally(() => {
+    window.open(url, "_blank");
+  });
+}
 
   setupScratchCard() {
     if (!this.scratchReady) return;
@@ -112,12 +180,13 @@ export class AboutPage implements OnInit, AfterViewInit {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    this.copyCoupon;
+
     ctx.fillStyle = '#999';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.globalCompositeOperation = 'destination-out';
 
     let isDrawing = false;
-
     const scratch = (x: number, y: number) => {
       ctx.beginPath();
       ctx.arc(x, y, 22, 0, Math.PI * 2);
@@ -141,12 +210,7 @@ export class AboutPage implements OnInit, AfterViewInit {
 
       if ((cleared / total) * 100 > 50 && !this.isScratched) {
         this.isScratched = true;
-
-        if (this.rewardScenario === 1) {
-          alert("🎉 Congratulations! You won a coupon!");
-        } else {
-          alert("😔 Sorry! Better luck next time!");
-        }
+        this.saveWinnerDetails(this.userId,this.scratchCount,this.eventId)
       }
     };
 

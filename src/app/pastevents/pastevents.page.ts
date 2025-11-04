@@ -5,10 +5,31 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-pastevents',
   standalone: true,
-  imports: [IonicModule, CommonModule], // ✅ Yeh zaroor hona chahiye
+  imports: [IonicModule, CommonModule],
   templateUrl: './pastevents.page.html',
   styleUrls: ['./pastevents.page.scss'],
 })
 export class PasteventsPage {
-  constructor() {}
+
+  winningsList: any[] = [];
+
+  constructor() {
+    this.getWinnings();
+  }
+
+  getWinnings() {
+    const eventId = 18;
+
+    fetch(`https://qaapi.yuvaap.dev/api/Scratchcard/getMyWinningsByEventId?eventId=${eventId}`)
+      .then(res => res.json())
+      .then(response => {
+        console.log("API Response:", response);
+        this.winningsList = (response.success && response.data) ? response.data : [];
+      })
+      .catch(err => {
+        console.error("API Error:", err);
+        this.winningsList = [];
+      });
+  }
+
 }

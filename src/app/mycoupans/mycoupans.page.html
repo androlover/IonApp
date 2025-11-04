@@ -1,15 +1,42 @@
-<ion-content class="outer-container">
+<ion-header>
+  <ion-toolbar class="my-gradient-header">
+    <ion-title>My Winnings</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-grid>
-    <ion-row class="header-row">
+<ion-content class="ion-padding">
 
-      <ion-col size="12" class="ion-text-center" style="padding-top:12px;">
-        <span style="font-weight:600; font-size:16px; color:#bf1c56;">
-          My Coupons
-        </span>
-      </ion-col>
+  <!-- Show when no data -->
+  <div *ngIf="!isLoading && winningsList.length === 0" class="no-data">
+    No winnings found 🥲
+  </div>
 
-    </ion-row>
-  </ion-grid>
+  <!-- Winning Cards -->
+  <ion-card *ngFor="let item of winningsList" class="win-card">
+
+    <ion-card-header>
+      <ion-card-title>🎉 Reward Won!</ion-card-title>
+      <ion-card-subtitle>Event #{{item.eventId}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <!-- Winning Detail -->
+      <p class="detail-text">{{item.winningDetail}}</p>
+
+      <!-- Coupon Box -->
+      <div class="coupon-box">
+        <span class="label">Coupon Code:</span>
+        <span class="code">{{item.couponCode}}</span>
+      </div>
+
+      <!-- Claim Button -->
+    <ion-button expand="block" shape="round" class="gradient-btn" (click)="claimPrize(item.ecomerceUrl)">
+  Claim Reward
+</ion-button>
+
+
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

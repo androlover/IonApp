@@ -1,171 +1,67 @@
-/* Layout containers */
-.outer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  text-align: center;
+.win-card {
+  border-radius: 14px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
 }
 
-.inner-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 390px;
-  padding: 20px;
-}
-
-.city-scroll {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-/* Shadow DOM safe gradient button inside this component */
-:host ::ng-deep .gradient-circle-button {
-  background: linear-gradient(to right, #bf1c56, #ff416c);
-  border-radius: 50%;          
-  padding-start: 0;
-  padding-end: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  color: #fff;
-
-  width: 100px !important;
-  height: 100px !important;
-  min-width: 100px !important;
-  min-height: 100px !important;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-}
-
-.button-text {
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.scratch-text {
-  color: #bf1c56;
-  padding: 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  margin-top: 30px;
-}
-
-.scratch-wrapper {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 20px auto;
-  border-radius: 12px;
-  background: #fff;
-}
-
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 12px;
-  z-index: 1;
-}
-
-.scratch-reward-box {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: #e0006d;
-  text-align: center;
-  padding: 20px 10px;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.reward-text {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.claim-btn-inside {
-  pointer-events: auto;
-  margin-top: 12px;
-  background: linear-gradient(to right, #bf1c56, #ff416c);
-  color: white;
-  font-weight: bold;
-  text-transform: capitalize;
-  border-radius: 10px;
-  height: 40px;
-  font-size: 14px;
-}
-
-
-.event-type-container {
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 14px;
-}
-
-.event-type-label {
-  font-size: 13px;
-  color: #6b6b6b;
+.detail-text {
+  font-size: 15px;
   font-weight: 500;
+  margin-bottom: 12px;
 }
 
-.event-heading-small {
-  font-size: 14px;
-  margin-top: 10px;
-  font-weight: bold;
+.coupon-box {
+  border: 1px dashed #2ecc71;
+  background: #eaffef;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.header-row {
-  display: flex;
-  align-items: center; /* vertically center */
+.coupon-box .label {
+  font-size: 13px;
+  color: #444;
 }
 
-.welcome-col {
-  display: flex;
-  align-items: center;
-}
-
-.welcome-text {
+.coupon-box .code {
+  display: block;
   font-size: 18px;
   font-weight: bold;
-  padding-left: 20px; /* 15-20px margin from left */
-  display: inline-block; /* spacing ensure */
+  margin-top: 4px;
+  letter-spacing: 1px;
 }
-.coupan-btn-col {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+
+.no-data {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 40px;
+  font-weight: 500;
+  opacity: 0.6;
 }
-.my-coupon-btn {
+
+.my-gradient-header {
+  --background: linear-gradient(to right, #bf1c56, #ff416c); 
+  color: #fff;
+}
+.my-gradient-header ion-title {
+  font-weight: bold;
+  color: #fff;
+}
+
+.gradient-btn {
+  --background: transparent;
+  --border-radius: 25px;
+  --box-shadow: none;
+  color: #fff;
+  font-weight: 600;
+
   --background: linear-gradient(to right, #bf1c56, #ff416c);
   --background-hover: linear-gradient(to right, #bf1c56, #ff416c);
   --background-activated: linear-gradient(to right, #bf1c56, #ff416c);
   --background-focused: linear-gradient(to right, #bf1c56, #ff416c);
 
-  --color: #fff;
-  font-weight: bold;
-  text-transform: capitalize;
-  border-radius: 10px;
-  height: 40px;
-  font-size: 14px;
-  --border-color: transparent;
+  border-radius: 25px;
+  padding: 12px;
 }
-
-
-
 
