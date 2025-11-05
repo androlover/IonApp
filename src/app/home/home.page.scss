@@ -1,11 +1,19 @@
 /* Layout containers */
+// .outer-container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+//   text-align: center;
+// }
+
 .outer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   text-align: center;
+  display: block; /* fix */
+  padding-top: 10px;
 }
+
 
 .inner-box {
   display: flex;
