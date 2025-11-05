@@ -45,7 +45,7 @@ pastEvents: any[] = [];      // Past events
     this.fetchCollegesFromAPI();
   }
 
- fetchCollegesFromAPI() {
+fetchCollegesFromAPI() {
   const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
 
   this.http.get<any>(apiUrl).subscribe({
@@ -56,30 +56,26 @@ pastEvents: any[] = [];      // Past events
 
         const today = new Date();
 
-        const running: any[] = [];
-        const upcoming: any[] = [];
-        const past: any[] = [];
+        // Reset arrays first
+        this.colleges = [];
+        this.upcomingEvents = [];
+        this.pastEvents = [];
 
-        // ✅ Always clone array before using
-        const events = JSON.parse(JSON.stringify(res.data));
-
-        events.forEach((event: any) => {
+        res.data.forEach((event: any) => {
           const scheduleDate = new Date(event.eventScheduleDate);
           const expireDate = new Date(event.eventExpireDate);
 
           if (scheduleDate > today) {
-            upcoming.push(event);
-          } else if (expireDate < today) {
-            past.push(event);
-          } else {
-            running.push(event);
+            this.upcomingEvents = [...this.upcomingEvents, event];
+          } 
+          else if (expireDate < today) {
+            this.pastEvents = [...this.pastEvents, event];
+          } 
+          else {
+            this.colleges = [...this.colleges, event];
           }
         });
 
-        // ✅ Assign new array (NO .push)
-        this.colleges = [...running];
-        this.upcomingEvents = [...upcoming];
-        this.pastEvents = [...past];
       } else {
         console.warn('Empty data from API');
         this.colleges = [];
@@ -95,6 +91,7 @@ pastEvents: any[] = [];      // Past events
     }
   });
 }
+
 
 
   goToMyCoupons() {
