@@ -45,54 +45,57 @@ pastEvents: any[] = [];      // Past events
     this.fetchCollegesFromAPI();
   }
 
-  fetchCollegesFromAPI() {
-   const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
-    //const apiUrl = '/api/Scratchcard/getAllScratchcardEvents'; // ✅ Local proxy path
-     //const apiUrl = 'https://deflagrable-nondefinitively-adelaide.ngrok-free.dev/api/Scratchcard/getAllScratchcardEvents';  // ✅ Always same
- 
-    this.http.get<any>(apiUrl).subscribe({
-      next: (res) => {
-        console.log('API Success:', res);
-        if (res.success == '200' && res.data?.length > 0) {
+ fetchCollegesFromAPI() {
+  const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
 
- res.data.forEach((event: any) => {
-        const scheduleDate = new Date(event.eventScheduleDate);
-        console.log('scdeuleDate',scheduleDate)
-        const expireDate = new Date(event.eventExpireDate);
-        console.log('expireDate',expireDate);
-const today = new Date();
-console.log('today',today)
-        if (scheduleDate > today) {
+  this.http.get<any>(apiUrl).subscribe({
+    next: (res) => {
+      console.log('API Success:', res);
 
-          console.log('upcoming',"true")
-          // Future event → upcoming
-          this.upcomingEvents.push(event);
-        } 
-        else if (expireDate < today) {
-          // Already expired → past
-          this.pastEvents.push(event);
-           console.log('expired',"true")
-        } 
-        else {
-          // Currently active → running
-          this.colleges.push(event);
-           console.log('running',"true")
-        }
-      });
+      if (res.success == '200' && res.data?.length > 0) {
 
+        const today = new Date();
 
+        const running: any[] = [];
+        const upcoming: any[] = [];
+        const past: any[] = [];
 
-        } else {
-          console.warn('Empty data from API');
-          this.colleges = [];
-        }
-      },
-      error: (err) => {
-        console.error('API Error:', err);
+        // ✅ Always clone array before using
+        const events = JSON.parse(JSON.stringify(res.data));
+
+        events.forEach((event: any) => {
+          const scheduleDate = new Date(event.eventScheduleDate);
+          const expireDate = new Date(event.eventExpireDate);
+
+          if (scheduleDate > today) {
+            upcoming.push(event);
+          } else if (expireDate < today) {
+            past.push(event);
+          } else {
+            running.push(event);
+          }
+        });
+
+        // ✅ Assign new array (NO .push)
+        this.colleges = [...running];
+        this.upcomingEvents = [...upcoming];
+        this.pastEvents = [...past];
+      } else {
+        console.warn('Empty data from API');
         this.colleges = [];
+        this.upcomingEvents = [];
+        this.pastEvents = [];
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('API Error:', err);
+      this.colleges = [];
+      this.upcomingEvents = [];
+      this.pastEvents = [];
+    }
+  });
+}
+
 
   goToMyCoupons() {
   // Navigate to Coupons Page
