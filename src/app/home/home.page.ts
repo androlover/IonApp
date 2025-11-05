@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FirebaseService } from '../services/firebase.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; // ✅ Also import
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IonicModule, CommonModule, HttpClientModule], // ✅ Fix here
+  imports: [IonicModule, CommonModule, HttpClientModule],
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
@@ -21,16 +20,17 @@ export class HomePage implements OnInit {
   eventtype: string = '';
 
   url: string = 'https://localhost:8100/dashboard/home?name=roshan&mobile=1234567890&userid=user12345&date=13-06-2025&appid=yuvaap&eventtype=scratch';
- colleges: any[] = [];        // Running events
-upcomingEvents: any[] = [];  // Upcoming events
-pastEvents: any[] = [];      // Past events
+
+  colleges: any[] = [];        // Running events
+  upcomingEvents: any[] = [];  // Upcoming events
+  pastEvents: any[] = [];      // Past events
 
   constructor(private router: Router, private http: HttpClient) {
-     try {
-    console.log('✅ HomePage constructor reached!');
-  } catch (e) {
-    console.error('😡 Error in HomePage constructor:', e);
-  }
+    try {
+      console.log('✅ HomePage constructor reached!');
+    } catch (e) {
+      console.error('😡 Error in HomePage constructor:', e);
+    }
   }
 
   ngOnInit() {
@@ -45,64 +45,64 @@ pastEvents: any[] = [];      // Past events
     this.fetchCollegesFromAPI();
   }
 
-fetchCollegesFromAPI() {
-  const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
+  fetchCollegesFromAPI() {
+    const apiUrl = 'https://qaapi.yuvaap.dev/api/Scratchcard/getAllScratchcardEvents';
 
-  this.http.get<any>(apiUrl).subscribe({
-    next: (res) => {
-      console.log('API Success:', res);
+    this.http.get<any>(apiUrl).subscribe({
+      next: (res) => {
+        console.log('API Success:', res);
 
-      if (res.success == '200' && res.data?.length > 0) {
+        if (res.success == '200' && res.data?.length > 0) {
+          const today = new Date();
 
-        const today = new Date();
+          // ✅ Deep clone response array (fix non-extensible object issue)
+          const events = JSON.parse(JSON.stringify(res.data));
 
-        // Reset arrays first
-        this.colleges = [];
-        this.upcomingEvents = [];
-        this.pastEvents = [];
+          // ✅ Sort events by schedule date (latest first)
+          events.sort((a: any, b: any) =>
+            new Date(b.eventScheduleDate).getTime() - new Date(a.eventScheduleDate).getTime()
+          );
 
-        res.data.forEach((event: any) => {
-          const scheduleDate = new Date(event.eventScheduleDate);
-          const expireDate = new Date(event.eventExpireDate);
+          // Reset
+          this.colleges = [];
+          this.upcomingEvents = [];
+          this.pastEvents = [];
 
-          if (scheduleDate > today) {
-            this.upcomingEvents = [...this.upcomingEvents, event];
-          } 
-          else if (expireDate < today) {
-            this.pastEvents = [...this.pastEvents, event];
-          } 
-          else {
-            this.colleges = [...this.colleges, event];
-          }
-        });
+          events.forEach((event: any) => {
+            const scheduleDate = new Date(event.eventScheduleDate);
+            const expireDate = new Date(event.eventExpireDate);
 
-      } else {
-        console.warn('Empty data from API');
+            if (scheduleDate > today) {
+              this.upcomingEvents = [...this.upcomingEvents, event];
+            } else if (expireDate < today) {
+              this.pastEvents = [...this.pastEvents, event];
+            } else {
+              this.colleges = [...this.colleges, event];
+            }
+          });
+
+        } else {
+          this.colleges = [];
+          this.upcomingEvents = [];
+          this.pastEvents = [];
+        }
+      },
+      error: (err) => {
+        console.error('API Error:', err);
         this.colleges = [];
         this.upcomingEvents = [];
         this.pastEvents = [];
       }
-    },
-    error: (err) => {
-      console.error('API Error:', err);
-      this.colleges = [];
-      this.upcomingEvents = [];
-      this.pastEvents = [];
-    }
-  });
-}
-
-
+    });
+  }
 
   goToMyCoupons() {
-  // Navigate to Coupons Page
-  this.router.navigate(['/mycoupans']);}
-
+    this.router.navigate(['/mycoupans']);
+  }
 
   goToPostEvents() {
-  // Navigate to Coupons Page
-  this.router.navigate(['/pastevents']);}
-
+    this.router.navigate(['/pastevents']);
+  }
 
   goToCityPage(event: any) {
     this.router.navigate(['/about'], {
