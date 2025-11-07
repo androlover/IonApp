@@ -34,7 +34,7 @@
 }
 
 /* Shadow DOM safe gradient button inside this component */
-:host ::ng-deep .gradient-circle-button {
+.gradient-circle-button {
   background: linear-gradient(to right, #bf1c56, #ff416c);
   border-radius: 50%;          
   padding-start: 0;

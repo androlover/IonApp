@@ -16,29 +16,38 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 /* --------------------------------------------------------
-   Global Background (color/gradient, no image)
+   🌈 Global Background (color/gradient)
 -------------------------------------------------------- */
 ion-content::part(native) {
   background: linear-gradient(to bottom, #f7f7f7, #e0e0e0) !important;
 }
 
-/* Global gradient circle button (Shadow DOM safe) */
-ion-button.gradient-circle-button {
-  --background: linear-gradient(to right, #bf1c56, #ff416c) !important;
-  --border-radius: 50% !important;
-  --padding-start: 0 !important;
-  --padding-end: 0 !important;
-  --padding-top: 0 !important;
-  --padding-bottom: 0 !important;
-  --color: #fff !important;
-
-  width: 100px !important;
-  height: 100px !important;
-  min-width: 100px !important;
-  min-height: 100px !important;
-
+/* --------------------------------------------------------
+   🌈 Global Gradient Buttons (Render Safe)
+-------------------------------------------------------- */
+ion-button.gradient-circle-button::part(native),
+ion-button.my-coupon-btn::part(native) {
+  background: linear-gradient(to right, #bf1c56, #ff416c) !important;
+  color: #fff !important;
+  border-radius: 50% !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   text-transform: capitalize !important;
+}
+
+/* Specific styling for circular buttons */
+ion-button.gradient-circle-button::part(native) {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px !important;
+  min-height: 100px !important;
+}
+
+/* Specific styling for "My Coupon" button */
+ion-button.my-coupon-btn::part(native) {
+  border-radius: 10px !important;
+  height: 40px !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
 }
