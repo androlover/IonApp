@@ -62,7 +62,7 @@ export class AboutPage implements OnInit, AfterViewInit {
           console.log("🎯 Scratch Count =", this.scratchCount);
         }
 
-        this.checkWinner();   // ✅ Check winner after count
+        this.checkWinner();  
       },
       error: err => {
         console.error("❌ Scratch API Error:", err);
@@ -71,20 +71,14 @@ export class AboutPage implements OnInit, AfterViewInit {
     });
   }
 
-  // ✅ Check winner based on scratch count
   checkWinner() {
     if (!this.winnersList || !Array.isArray(this.winnersList)) return;
-
     this.isWinner = this.winnersList.some(
       (w: any) => Number(w?.scratchCount) === Number(this.scratchCount)
     );
     if(this.isWinner) {
 this.getPrizeDetails(this.eventId,this.scratchCount)
     }
-    else {
-      this.getPrizeDetails(this.eventId,this.scratchCount)
-    }
-
     this.decideScratchStart();
 
     console.log("🏆 Is Winner:", this.isWinner);
@@ -92,7 +86,7 @@ this.getPrizeDetails(this.eventId,this.scratchCount)
   }
 
  getPrizeDetails(eventId: number, winnerId: number) {
-  const url = `https://qaapi.yuvaap.dev/api/Scratchcard/GetPrizeDetailOfUser?eventId=18&winnerId=9`;
+  const url = `https://qaapi.yuvaap.dev/api/Scratchcard/GetPrizeDetailOfUser?eventId=eventId&winnerId=winnerId`;
 console.log("✅ Prize API Response:", eventId , winnerId);
   this.http.get(url).subscribe({
     next: (res: any) => {
@@ -141,11 +135,11 @@ saveWinnerDetails(userId: string, winnerId: number, eventId: number) {
 
 
   decideScratchStart() {
-    if (this.scratchCount >= 3) {
-      alert("Scratch limit reached for today!");
-      this.scratchReady = false;
-      return;
-    }
+    // if (this.scratchCount >= 3) {
+    //   alert("Scratch limit reached for today!");
+    //   this.scratchReady = false;
+    //   return;
+    // }
 
     this.rewardScenario = this.isWinner ? 1 : 2;
     console.log("🎁 rewardScenario:", this.rewardScenario);
