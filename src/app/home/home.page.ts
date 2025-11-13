@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -19,30 +19,30 @@ export class HomePage implements OnInit {
   appid: string = '';
   eventtype: string = '';
 
-  url: string = 'https://localhost:8100/dashboard/home?name=roshan&mobile=1234567890&userid=user12345&date=13-06-2025&appid=yuvaap&eventtype=scratch';
+  colleges: any[] = [];
+  upcomingEvents: any[] = [];
+  pastEvents: any[] = [];
 
-  colleges: any[] = [];        // Running events
-  upcomingEvents: any[] = [];  // Upcoming events
-  pastEvents: any[] = [];      // Past events
-
-  constructor(private router: Router, private http: HttpClient) {
-    try {
-      console.log('✅ HomePage constructor reached!');
-    } catch (e) {
-      console.error('😡 Error in HomePage constructor:', e);
-    }
-  }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
-    const params = new URL(this.url).searchParams;
-    this.name = params.get('name') || '';
-    this.mobile = params.get('mobile') || '';
-    this.userid = params.get('userid') || '';
-    this.date = params.get('date') || '';
-    this.appid = params.get('appid') || '';
-    this.eventtype = params.get('eventtype') || '';
+    // ✅ Fetch query params dynamically (works for any domain)
+    this.route.queryParams.subscribe(params => {
+      this.name = params['name'] || '';
+      this.mobile = params['mobile'] || '';
+      this.userid = params['userid'] || '';
+      this.date = params['date'] || '';
+      this.appid = params['appid'] || '';
+      this.eventtype = params['eventtype'] || '';
 
-    this.fetchCollegesFromAPI();
+      console.log('✅ Query Params:', params);
+
+      this.fetchCollegesFromAPI();
+    });
   }
 
   fetchCollegesFromAPI() {
@@ -54,16 +54,11 @@ export class HomePage implements OnInit {
 
         if (res.success == '200' && res.data?.length > 0) {
           const today = new Date();
-
-          // ✅ Deep clone response array (fix non-extensible object issue)
           const events = JSON.parse(JSON.stringify(res.data));
-
-          // ✅ Sort events by schedule date (latest first)
           events.sort((a: any, b: any) =>
             new Date(b.eventScheduleDate).getTime() - new Date(a.eventScheduleDate).getTime()
           );
 
-          // Reset
           this.colleges = [];
           this.upcomingEvents = [];
           this.pastEvents = [];
@@ -73,14 +68,13 @@ export class HomePage implements OnInit {
             const expireDate = new Date(event.eventExpireDate);
 
             if (scheduleDate > today) {
-              this.upcomingEvents = [...this.upcomingEvents, event];
+              this.upcomingEvents.push(event);
             } else if (expireDate < today) {
-              this.pastEvents = [...this.pastEvents, event];
+              this.pastEvents.push(event);
             } else {
-              this.colleges = [...this.colleges, event];
+              this.colleges.push(event);
             }
           });
-
         } else {
           this.colleges = [];
           this.upcomingEvents = [];
