@@ -79,6 +79,9 @@ export class AboutPage implements OnInit, AfterViewInit {
     if(this.isWinner) {
 this.getPrizeDetails(this.eventId,this.scratchCount)
     }
+    else {
+      this.getPrizeDetails(this.eventId,this.scratchCount)
+    }
     this.decideScratchStart();
 
     console.log("🏆 Is Winner:", this.isWinner);
