@@ -91,7 +91,13 @@ export class HomePage implements OnInit {
   }
 
   goToMyCoupons() {
-    this.router.navigate(['/mycoupans']);
+    this.router.navigate(['/mycoupans'],{
+      queryParams: {
+        name: this.name,
+        mobile: this.mobile,
+        userid: this.userid,
+      }
+    });
   }
 
   goToPostEvents() {

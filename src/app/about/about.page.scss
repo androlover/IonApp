@@ -25,7 +25,12 @@
   margin: 20px auto;
   background: #fff;
   border-radius: 10px;
+
+  /* NEW */
+  border: 2px solid #000;
 }
+
+
 
 canvas {
   position: absolute;
@@ -97,6 +102,21 @@ canvas {
   text-align: center;
   padding: 4px 10px;
 }
+
+.reward-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff1744;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+
+  text-align: center;
+}
+
 
 
 

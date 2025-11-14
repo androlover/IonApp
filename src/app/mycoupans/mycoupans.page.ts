@@ -2,37 +2,52 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-coupans',
   templateUrl: './mycoupans.page.html',
   styleUrls: ['./mycoupans.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule] 
-
+  imports: [IonicModule, CommonModule]
 })
 export class MyCouponsPage implements OnInit {
 
   winningsList: any[] = [];
   isLoading: boolean = true;
-  userId: string = "user12345"; // later dynamic
 
-  constructor(private http: HttpClient) {}
+  userId: string = '';
+  name: string = '';
+  eventtype: string = '';
+
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.getWinnings();
+    this.route.queryParams.subscribe(params => {
+      this.name = params['name'] || '';
+      this.eventtype = params['eventtype'] || '';
+      this.userId = params['userid'] || '';
+     // this.userId='user12345'
+
+      console.log("🆔 User ID:", this.userId);
+
+      if (this.userId) {
+        this.getWinnings();
+      }
+    });
   }
 
   getWinnings() {
     const url = `https://qaapi.yuvaap.dev/api/Scratchcard/getMyWinningsByUserId?userId=${this.userId}`;
 
-    console.log("📤 API Call:", url);
+    
 
     this.http.get(url).subscribe({
       next: (res: any) => {
         console.log("✅ API Response:", res);
         this.winningsList = res?.data || [];
         this.isLoading = false;
+        console.log("📤 API Call:", res);
       },
       error: err => {
         console.log("❌ API Error:", err);
@@ -42,6 +57,9 @@ export class MyCouponsPage implements OnInit {
   }
 
   claimPrize(url: string) {
-    window.open(url, "_blank");
+    if (url) {
+      window.open(url, "_blank");
+    }
   }
+
 }
