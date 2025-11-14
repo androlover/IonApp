@@ -53,8 +53,11 @@
   </ng-template>
 
   <!-- 🔴 Past Events -->
+  <!-- 🔴 Past Events -->
+<div *ngIf="pastEvents.length > 0">
   <h6 class="event-heading-small">Past Events</h6>
-  <div class="city-scroll" *ngIf="(pastEvents || []).length > 0; else noPast">
+
+  <div class="city-scroll">
     <ion-button
       *ngFor="let event of pastEvents"
       class="gradient-circle-button past"
@@ -65,13 +68,15 @@
       </div>
     </ion-button>
   </div>
-  <ng-template #noPast>
-    <p class="no-data">No past events</p>
-  </ng-template>
+</div>
+
 
   <!-- 🔵 Upcoming Events -->
+<!-- 🔵 Upcoming Events -->
+<div *ngIf="upcomingEvents.length > 0">
   <h6 class="event-heading-small">Upcoming Events</h6>
-  <div class="city-scroll" *ngIf="(upcomingEvents || []).length > 0; else noUpcoming">
+
+  <div class="city-scroll">
     <ion-button
       *ngFor="let event of upcomingEvents"
       class="gradient-circle-button upcoming"
@@ -82,8 +87,7 @@
       </div>
     </ion-button>
   </div>
-  <ng-template #noUpcoming>
-    <p class="no-data">No upcoming events</p>
-  </ng-template>
+</div>
+
 
 </ion-content>
