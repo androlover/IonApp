@@ -44,6 +44,8 @@ export class AboutPage implements OnInit, AfterViewInit {
       this.eventId = Number(params['eventId']);
 
       console.log("✅ UserId:", this.userId);
+
+      console.log("✅ eventId:", this.eventId);
       console.log("👑 Winners List:", this.winnersList);
 
       if (this.userId) this.addScratchcardClick();
@@ -52,7 +54,11 @@ export class AboutPage implements OnInit, AfterViewInit {
 
   // ✅ Hit API to get scratch count
   addScratchcardClick() {
-    const apiUrl = `https://qaapi.yuvaap.dev/api/Scratchcard/AddScratchcardClick?userId=${this.userId}`;
+    const apiUrl = `https://qaapi.yuvaap.dev/api/Scratchcard/AddScratchcardClick?userId=${this.userId}&eventId=${this.eventId}`;
+    
+
+    console.log("✅ apiUrl eventId:", this.eventId);
+    console.log("✅ apiUrl", apiUrl);
 
     this.http.post(apiUrl, {}).subscribe({
       next: (response: any) => {
