@@ -13,40 +13,45 @@
         <canvas #scratchCanvas width="200" height="200"></canvas>
 
         <!-- Show reward result only after scratching -->
-       <div
-  class="scratch-reward-box"
-  *ngIf="isScratched"
-  style="text-align: center; margin-top: 16px;"
->
+   <div class="scratch-reward-box" *ngIf="isScratched">
 
-  <!-- If coupon exists -->
-<!-- If coupon exists -->
-<ng-container *ngIf="couponCode && couponCode.trim() !== ''; else noCoupon">
+  <div class="scratch-content">
+      
+      <ng-container *ngIf="couponCode && couponCode.trim() !== ''; else noCoupon">
 
-  <div class="coupon-box">
-    <span class="coupon-text">{{ couponCode }}</span>
-    <ion-icon name="copy-outline" class="copy-icon" (click)="copyCoupon()"></ion-icon>
+  <div class="coupon-box" (click)="copyCoupon()">
+  <span class="coupon-text">{{ couponCode }}</span>
+  <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+</div>
+
+
+
+
+        <p class="reward-description" *ngIf="description && description.trim() !== ''">
+          {{ description }}
+        </p>
+
+      </ng-container>
+
+      <ng-template #noCoupon>
+        <div class="reward-text">
+          😔 Sorry, Better Luck Next Time
+        </div>
+      </ng-template>
+
   </div>
 
-  <!-- Reward Description -->
-<p class="reward-description" *ngIf="description && description.trim() !== ''">
-  {{ description }}
-</p>
+  <!-- Claim button ALWAYS inside -->
+<ion-button 
+  class="claim-btn-inside" 
+  *ngIf="couponCode && couponCode.trim() !== ''" 
+  (click)="claimNow()">
+  Claim Now
+</ion-button>
 
-
-  <ion-button class="claim-btn-inside" (click)="claimNow()">Claim Now</ion-button>
-
-</ng-container>
-
-
-  <!-- If no coupon -->
-  <ng-template #noCoupon>
-    <div class="reward-text">
-      😔 Sorry, Better Luck Next Time
-    </div>
-  </ng-template>
 
 </div>
+
 
       </div>
     </div>

@@ -30,7 +30,12 @@
   border: 2px solid #000;
 }
 
-
+.scratch-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px;
+  text-align: center;
+}
 
 canvas {
   position: absolute;
@@ -40,41 +45,92 @@ canvas {
   z-index: 1;
 }
 
+// .scratch-reward-box {
+//   z-index: 2;
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   color: #e0006d;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   padding: 20px;
+//   pointer-events: none;
+// }
 .scratch-reward-box {
   z-index: 2;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   color: #e0006d;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
+  justify-content: space-between;   /* Items top, middle, bottom */
+
+  padding: 12px;
   pointer-events: none;
+
+  overflow: hidden;  /* Avoid overflow outside */
+}
+
+// .claim-btn-inside {
+//   pointer-events: auto; /* allow click */
+//   margin-top: 12px;
+//   --background: linear-gradient(to right, #bf1c56, #ff416c);
+//   color: white;
+//   font-weight: bold;
+//   text-transform: capitalize;
+//   border-radius: 10px;
+//   height: 40px;
+//   font-size: 14px;
+// }
+
+
+
+.coupon-box {
+  cursor: pointer;
 }
 
 .claim-btn-inside {
-  pointer-events: auto; /* allow click */
-  margin-top: 12px;
+  pointer-events: auto;
   --background: linear-gradient(to right, #bf1c56, #ff416c);
   color: white;
-  font-weight: bold;
-  text-transform: capitalize;
   border-radius: 10px;
-  height: 40px;
+  height: 42px;
+  width: 100%;               /* NEW – always fit inside */
   font-size: 14px;
+  text-transform: capitalize;
+  margin-top: 10px;
 }
 
+// .coupon-box {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   background: #fff;
+//   border: 2px dashed #bf1c56;
+//   padding: 8px 12px;
+//   border-radius: 8px;
+//   font-weight: bold;
+//   font-size: 16px;
+// }
+
 .coupon-box {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
+
   background: #fff;
   border: 2px dashed #bf1c56;
+
   padding: 8px 12px;
   border-radius: 8px;
-  font-weight: bold;
-  font-size: 16px;
+
+  max-width: 100%;              /* NEW */
+  word-wrap: break-word;        /* NEW for long coupon codes */
+  justify-content: center;
+
+  margin: 0 auto;               /* Center horizontally */
 }
 
 .copy-icon {
@@ -83,24 +139,39 @@ canvas {
   color: #bf1c56;
 }
 
+// .coupon-text {
+//   font-size: 15px;
+//   font-weight: 700;
+//   color: #e0006d;
+//   letter-spacing: 2px;
+// }
 .coupon-text {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   color: #e0006d;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+  max-width: 100%;              /* NEW */
+  overflow-wrap: break-word;    /* NEW */
 }
 
 .copy-icon:active {
   transform: scale(0.9);
 }
 
+// .reward-description {
+//   font-size: 14px;
+//   margin-top: 8px;
+//   color: #2e7d32;
+//   font-weight: 600;
+//   text-align: center;
+//   padding: 4px 10px;
+// }
+
 .reward-description {
   font-size: 14px;
-  margin-top: 8px;
   color: #2e7d32;
   font-weight: 600;
-  text-align: center;
-  padding: 4px 10px;
+  margin-top: 8px;
 }
 
 .reward-text {

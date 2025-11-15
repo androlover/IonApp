@@ -38,10 +38,7 @@ export class MyCouponsPage implements OnInit {
   }
 
   getWinnings() {
-    const url = `https://qaapi.yuvaap.dev/api/Scratchcard/getMyWinningsByUserId?userId=${this.userId}`;
-
-    
-
+    const url = `https://yuvaap.dev/api/Scratchcard/getMyWinningsByUserId?userId=${this.userId}`;
     this.http.get(url).subscribe({
       next: (res: any) => {
         console.log("✅ API Response:", res);

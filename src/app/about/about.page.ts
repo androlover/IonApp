@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-about',
@@ -32,7 +33,7 @@ export class AboutPage implements OnInit, AfterViewInit {
   couponUrl = '';
   description = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private toastCtrl: ToastController) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -48,17 +49,18 @@ export class AboutPage implements OnInit, AfterViewInit {
       console.log("✅ eventId:", this.eventId);
       console.log("👑 Winners List:", this.winnersList);
 
+      this.userId='user12345'
       if (this.userId) this.addScratchcardClick();
     });
   }
 
   // ✅ Hit API to get scratch count
   addScratchcardClick() {
-    const apiUrl = `https://qaapi.yuvaap.dev/api/Scratchcard/AddScratchcardClick?userId=${this.userId}&eventId=${this.eventId}`;
+    const apiUrl = `https://yuvaap.dev/api/Scratchcard/AddScratchcardClick?userId=${this.userId}&eventId=${this.eventId}`;
     
 
     console.log("✅ apiUrl eventId:", this.eventId);
-    console.log("✅ apiUrl", apiUrl);
+    //console.log("✅ apiUrl", apiUrl);
 
     this.http.post(apiUrl, {}).subscribe({
       next: (response: any) => {
@@ -88,7 +90,7 @@ export class AboutPage implements OnInit, AfterViewInit {
 
   // ✅ FIXED API URL
   getPrizeDetails(eventId: number, winnerId: number) {
-    const url = `https://qaapi.yuvaap.dev/api/Scratchcard/GetPrizeDetailOfUser?eventId=${eventId}&winnerId=${winnerId}`;
+    const url = `https://yuvaap.dev/api/Scratchcard/GetPrizeDetailOfUser?eventId=${eventId}&winnerId=${winnerId}`;
 
     this.http.get(url).subscribe({
       next: (res: any) => {
@@ -103,16 +105,24 @@ export class AboutPage implements OnInit, AfterViewInit {
     });
   }
 
-  copyCoupon() {
-    if (!this.couponCode) return;
-    navigator.clipboard.writeText(this.couponCode).then(() => {
-      alert("✅ Coupon Copied!");
-    });
-  }
+async copyCoupon() {
+  if (!this.couponCode) return;
+
+  await navigator.clipboard.writeText(this.couponCode);
+
+  const toast = await this.toastCtrl.create({
+    message: 'Coupon Copied!',
+    duration: 1500,
+    color: 'success',
+    position: 'top'
+  });
+
+  toast.present();
+}
 
   // ✅ Dynamic IDs send hone chahiye
   saveWinnerDetails(userId: string, winnerId: number, eventId: number) {
-    const url = 'https://qaapi.yuvaap.dev/api/Scratchcard/saveWinnerDetails';
+    const url = 'https://yuvaap.dev/api/Scratchcard/saveWinnerDetails';
     const body = {
       userId,
       winnerId,
