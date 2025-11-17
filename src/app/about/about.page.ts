@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -33,7 +34,7 @@ export class AboutPage implements OnInit, AfterViewInit {
   couponUrl = '';
   description = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient,private toastCtrl: ToastController) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private toastCtrl: ToastController, private navCtrl: NavController ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -49,7 +50,7 @@ export class AboutPage implements OnInit, AfterViewInit {
       console.log("✅ eventId:", this.eventId);
       console.log("👑 Winners List:", this.winnersList);
 
-      this.userId='user12345'
+      //this.userId='user12345'
       if (this.userId) this.addScratchcardClick();
     });
   }
@@ -106,7 +107,8 @@ export class AboutPage implements OnInit, AfterViewInit {
   }
 
 async copyCoupon() {
-  if (!this.couponCode) return;
+  console.log("coupy coupan pressed");
+//  if (!this.couponCode) return;
 
   await navigator.clipboard.writeText(this.couponCode);
 
@@ -238,4 +240,9 @@ async copyCoupon() {
 
     canvas.addEventListener('touchend', () => isDrawing = false);
   }
+
+  goBack() {
+  this.navCtrl.back();   // Ionic Navigation back
+}
+
 }

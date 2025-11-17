@@ -1,56 +1,57 @@
 <ion-content class="outer-container">
   <div class="inner-box">
 
-    <!-- Selected College Name -->
     <p><strong>Selected Event:</strong> {{ selectedCity }}</p>
 
-    <!-- Scratch Section -->
     <div class="scratch-section">
       <p class="scratch-text">Please scratch below to win exciting prizes</p>
 
       <div class="scratch-wrapper">
-        <!-- Scratch canvas -->
+
+        <!-- Scratch Canvas -->
         <canvas #scratchCanvas width="200" height="200"></canvas>
 
-        <!-- Show reward result only after scratching -->
-   <div class="scratch-reward-box" *ngIf="isScratched">
+        <!-- SHOW AFTER SCRATCH -->
+        <div class="scratch-reward-box" *ngIf="isScratched">
 
-  <div class="scratch-content">
-      
-      <ng-container *ngIf="couponCode && couponCode.trim() !== ''; else noCoupon">
+          <div class="scratch-content">
 
-  <div class="coupon-box" (click)="copyCoupon()">
-  <span class="coupon-text">{{ couponCode }}</span>
-  <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
-</div>
-        <p class="reward-description" *ngIf="description && description.trim() !== ''">
-          {{ description }}
-        </p>
+            <ng-container *ngIf="couponCode && couponCode.trim() !== ''; else noCoupon">
 
-      </ng-container>
+              <!-- ✅ CLICK WORKS HERE -->
+              <div class="coupon-box" (click)="copyCoupon()">
+                <span class="coupon-text">{{ couponCode }}</span>
+                <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+              </div>
 
-      <ng-template #noCoupon>
-        <div class="reward-text">
-          😔 Sorry, Better Luck Next Time
+              <p class="reward-description" *ngIf="description && description.trim() !== ''">
+                {{ description }}
+              </p>
+
+            </ng-container>
+
+            <ng-template #noCoupon>
+              <div class="reward-text">😔 Sorry, Better Luck Next Time</div>
+            </ng-template>
+
+          </div>
+
+          <ion-button 
+            class="claim-btn-inside"
+            *ngIf="couponCode && couponCode.trim() !== ''"
+            (click)="claimNow()">
+            Claim Now
+          </ion-button>
+
         </div>
-      </ng-template>
-
-  </div>
-
-  <!-- Claim button ALWAYS inside -->
-<ion-button 
-  class="claim-btn-inside" 
-  *ngIf="couponCode && couponCode.trim() !== ''" 
-  (click)="claimNow()">
-  Claim Now
-</ion-button>
-
-
-</div>
-
 
       </div>
     </div>
 
   </div>
+
+
+  <div class="go-back-wrapper">
+  <ion-button class="go-back-btn" (click)="goBack()">Go Back</ion-button>
+</div>
 </ion-content>

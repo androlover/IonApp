@@ -20,7 +20,7 @@ export class PasteventsPage {
   getWinnings() {
     const eventId = 18;
 
-    fetch(`https://qaapi.yuvaap.dev/api/Scratchcard/getMyWinningsByEventId?eventId=${eventId}`)
+    fetch(`https://yuvaap.dev/api/Scratchcard/getMyWinningsByEventId?eventId=${eventId}`)
       .then(res => res.json())
       .then(response => {
         console.log("API Response:", response);

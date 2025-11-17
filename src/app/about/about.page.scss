@@ -7,187 +7,113 @@
 }
 
 .inner-box {
-  padding: 20px;  
-  width: 100%;
+  padding: 20px;
   max-width: 400px;
-}
-
-.scratch-text {
-  margin-top: 20px;
-  font-weight: bold;
-  color: #e0006d;
+  width: 100%;
 }
 
 .scratch-wrapper {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   margin: 20px auto;
-  background: #fff;
-  border-radius: 10px;
-  /* NEW */
-  border: 2px solid #999;
-}
-
-.scratch-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 4px;
-  text-align: center;
+  background: #fff;          /* WHITE RECTANGLE BACKGROUND */
+  border-radius: 12px;
+  overflow: hidden;          /* Grey canvas overflow fix */
 }
 
 canvas {
   position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 10px;
+  inset: 0;
+  width: 250px;
+  height: 250px;
   z-index: 1;
+  border-radius: 12px;
 }
 
-// .scratch-reward-box {
-//   z-index: 2;
-//   position: absolute;
-//   width: 100%;
-//   height: 100%;
-//   color: #e0006d;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   padding: 20px;
-//   pointer-events: none;
-// }
 .scratch-reward-box {
-  z-index: 2;
   position: absolute;
   inset: 0;
-  color: #e0006d;
+  width: 250px;
+  height: 250px;
+
+  z-index: 2;
+  padding: 12px;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;   /* Items top, middle, bottom */
-
-  padding: 12px;
-  pointer-events: none;
-
-  overflow: hidden;  /* Avoid overflow outside */
-}
-
-// .claim-btn-inside {
-//   pointer-events: auto; /* allow click */
-//   margin-top: 12px;
-//   --background: linear-gradient(to right, #bf1c56, #ff416c);
-//   color: white;
-//   font-weight: bold;
-//   text-transform: capitalize;
-//   border-radius: 10px;
-//   height: 40px;
-//   font-size: 14px;
-// }
-
-
-
-.coupon-box {
-  cursor: pointer;
-}
-
-.claim-btn-inside {
-  pointer-events: auto;
-  --background: linear-gradient(to right, #bf1c56, #ff416c);
-  color: white;
-  border-radius: 10px;
-  height: 42px;
-  width: 100%;               /* NEW – always fit inside */
-  font-size: 14px;
-  text-transform: capitalize;
-  margin-top: 10px;
-}
-
-// .coupon-box {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   background: #fff;
-//   border: 2px dashed #bf1c56;
-//   padding: 8px 12px;
-//   border-radius: 8px;
-//   font-weight: bold;
-//   font-size: 16px;
-// }
-
-.coupon-box {
-  display: inline-flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
 
+  pointer-events: auto;
+}
+
+.coupon-box {
   background: #fff;
   border: 2px dashed #bf1c56;
 
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 10px;
 
-  max-width: 100%;              /* NEW */
-  word-wrap: break-word;        /* NEW for long coupon codes */
+  display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 12px;
 
-  margin: 0 auto;               /* Center horizontally */
+  width: 100%;
+  cursor: pointer;          /* 🔥 CLICK ENABLED */
+
+  margin-top: 12px;
+  z-index: 2000;
+}
+
+.coupon-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e0006d;
 }
 
 .copy-icon {
-  font-size: 20px;
-  cursor: pointer;
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
   color: #bf1c56;
 }
 
-// .coupon-text {
-//   font-size: 15px;
-//   font-weight: 700;
-//   color: #e0006d;
-//   letter-spacing: 2px;
-// }
-.coupon-text {
-  font-size: 14px;
-  font-weight: 700;
-  color: #e0006d;
-  letter-spacing: 1px;
-  max-width: 100%;              /* NEW */
-  overflow-wrap: break-word;    /* NEW */
+.claim-btn-inside {
+  margin-top: 12px;
+  border-radius: 10px;
+  height: 42px;
+  width: 100%;
+  pointer-events: auto;
+  --background: linear-gradient(to right, #bf1c56, #ff416c);
+  color: white;
 }
-
-.copy-icon:active {
-  transform: scale(0.9);
-}
-
-// .reward-description {
-//   font-size: 14px;
-//   margin-top: 8px;
-//   color: #2e7d32;
-//   font-weight: 600;
-//   text-align: center;
-//   padding: 4px 10px;
-// }
 
 .reward-description {
-  font-size: 14px;
   color: #2e7d32;
   font-weight: 600;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .reward-text {
   font-size: 18px;
   font-weight: bold;
   color: #ff1744;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 100%;
-  width: 100%;
-
   text-align: center;
 }
 
+.go-back-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
-
-
+.go-back-btn {
+  --background: #d9534f;
+  --border-radius: 10px;
+  --padding: 10px 20px;
+  font-size: 16px;
+  text-transform: none;
+}
 
