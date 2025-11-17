@@ -50,25 +50,6 @@
     <p class="no-data">No running events</p>
   </ng-template>
 
-  <!-- 🔴 Past Events -->
-  <!-- 🔴 Past Events -->
-<div *ngIf="pastEvents.length > 0">
-  <h6 class="event-heading-small">Past Events</h6>
-
-  <div class="city-scroll">
-    <ion-button
-      *ngFor="let event of pastEvents"
-      class="gradient-circle-button past"
-      expand="block"
-      (click)="goToPostEvents()">
-      <div class="button-text">
-        {{ event.eventName }}<br />
-      </div>
-    </ion-button>
-  </div>
-</div>
-
-
 <div *ngIf="upcomingEvents.length > 0">
   <h6 class="event-heading-small">Upcoming Events</h6>
 
@@ -88,6 +69,24 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="pastEvents.length > 0">
+  <h6 class="event-heading-small">Past Events</h6>
+
+  <div class="city-scroll">
+    <ion-button
+      *ngFor="let event of pastEvents"
+      class="gradient-circle-button past"
+      expand="block"
+      (click)="goToPostEvents()">
+      <div class="button-text">
+        {{ event.eventName }}<br />
+      </div>
+    </ion-button>
+  </div>
+</div>
+
+
 
 
 
