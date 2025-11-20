@@ -100,8 +100,12 @@ export class HomePage implements OnInit {
     });
   }
 
-  goToPostEvents() {
-    this.router.navigate(['/pastevents']);
+  goToPostEvents(event:any) {
+    this.router.navigate(['/pastevents'],{
+      queryParams: {
+      eventId: event.eventId,
+      }
+    });
   }
 
   goToCityPage(event: any) {

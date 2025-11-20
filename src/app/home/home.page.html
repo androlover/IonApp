@@ -29,11 +29,6 @@
 </ion-col>
     </ion-row>
   </ion-grid>
-
-  <!-- Center Event Type -->
-
-
-  <!-- 🟢 Running Events -->
   <h6 class="event-heading-small">Running Events</h6>
   <div class="city-scroll" *ngIf="(colleges || []).length > 0; else noRunning">
     <ion-button
@@ -78,7 +73,7 @@
       *ngFor="let event of pastEvents"
       class="gradient-circle-button past"
       expand="block"
-      (click)="goToPostEvents()">
+      (click)="goToPostEvents(event)">
       <div class="button-text">
         {{ event.eventName }}<br />
       </div>
