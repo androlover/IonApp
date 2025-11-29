@@ -3,52 +3,81 @@
   text-align: center;
 }
 
-/* Header Row (Username / Reward) */
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 10px;
-  background: #f2f2f2;
-  font-size: 16px;
-  border-bottom: 1px solid #ddd;
-}
-
-.col-left,
-.col-right {
-  width: 50%;
-  font-weight: 600;
-  text-align: left;
-}
-
-/* Ion Item Spacing */
-ion-item {
-  --inner-padding-start: 0;
-  --inner-padding-end: 0;
-  --padding-start: 10px;
-  --padding-end: 10px;
-}
-
-/* Text inside the winner list */
-.left-text {
-  text-align: left !important;
-  font-weight: 500;
-  color: #008000;
-  display: flex;
-  align-items: center;
-}
-
-.right-text {
-  text-align: right !important;
-  font-weight: 500;
-  color: #008000;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
 /* Gradient Header Toolbar */
 ion-toolbar[color="my-gradient-header"] {
   background: linear-gradient(90deg, #bf1c56, #ff416c);
   color: #fff;
   font-weight: 600;
+}
+
+/* Header Row (Username / Reward) */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.col-left{
+  width: 50%;
+  font-weight: 600;
+  text-align: left;
+}
+.col-right {
+  width: 50%;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Ion-item spacing fix for full width */
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+}
+
+/* Grid full width fix */
+.winner-grid {
+  width: 100%;
+  padding: 0;
+}
+
+/* Username column */
+.left-col {
+  font-weight: 500;
+  color: green;
+  text-align: left;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* Reward column */
+.right-col {
+  font-weight: 500;
+  color: green;
+  text-align: right;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* Old text classes merged properly */
+.left-text {
+  font-weight: 500;
+  color: #008000;
+  display: flex;
+  align-items: center;
+  text-align: left !important;
+}
+
+.right-text {
+  font-weight: 500;
+  color: #008000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right !important;
 }
