@@ -28,6 +28,7 @@ ion-toolbar[color="my-gradient-header"] {
 .col-left{
   width: 50%;
   font-weight: 600;
+  color: #000000;
   text-align: left;
 }
 
@@ -38,6 +39,7 @@ ion-item::part(native) {
 .col-right {
   width: 50%;
   font-weight: 600;
+  color: #000000;
   text-align: right;
 }
 
@@ -75,20 +77,52 @@ ion-item {
 }
 
 
-/* Old text classes merged properly */
-.left-text {
-  font-weight: 500;
-  color: #008000;
-  display: flex;
-  align-items: center;
-  text-align: left;
+// /* Old text classes merged properly */
+// .left-text {
+//   font-weight: 500;
+//   color: #008000;
+//   display: flex;
+//   align-items: center;
+//   text-align: left;
+// }
+
+// .right-text {
+//   font-weight: 500;
+//   color: #008000;
+//   display: flex;
+//   justify-content: flex-end;
+//   align-items: center;
+//   text-align: right ;
+// }
+
+/* Make ion-item true flex row */
+.winner-item::part(native) {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  width: 100% !important;
+  padding: 8px 12px !important;
 }
 
+/* Left column */
+.left-text {
+  font-weight: 500;
+  color: green;
+  text-align: left !important;
+  flex: 1;
+  white-space: normal;
+}
+
+/* Right column */
 .right-text {
   font-weight: 500;
-  color: #008000;
+  color: green;
+  text-align: right !important;
+  flex: 1;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-  text-align: right ;
+  white-space: normal;
 }
+
