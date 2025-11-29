@@ -2,6 +2,10 @@
 .title-center {
   text-align: center;
 }
+ion-col {
+  display: block ;
+}
+
 
 /* Gradient Header Toolbar */
 ion-toolbar[color="my-gradient-header"] {
@@ -26,6 +30,11 @@ ion-toolbar[color="my-gradient-header"] {
   font-weight: 600;
   text-align: left;
 }
+
+ion-item::part(native) {
+  display: block !important;
+}
+
 .col-right {
   width: 50%;
   font-weight: 600;
@@ -42,27 +51,29 @@ ion-item {
 
 /* Grid full width fix */
 .winner-grid {
-  width: 100%;
-  padding: 0;
+  width: 100% ;
+  padding: 0 ;
+  margin: 0;
 }
+
 
 /* Username column */
 .left-col {
-  font-weight: 500;
-  color: green;
-  text-align: left;
-  overflow-wrap: break-word;
-  white-space: normal;
+  text-align: left ;
+  display: flex ;
+  justify-content: flex-start ;
+  width: 100% ;
 }
+
 
 /* Reward column */
 .right-col {
-  font-weight: 500;
-  color: green;
-  text-align: right;
-  overflow-wrap: break-word;
-  white-space: normal;
+  text-align: right ;
+  justify-content: flex-end ;
+  display: flex ;
+  width: 100% ;
 }
+
 
 /* Old text classes merged properly */
 .left-text {
@@ -70,7 +81,7 @@ ion-item {
   color: #008000;
   display: flex;
   align-items: center;
-  text-align: left !important;
+  text-align: left;
 }
 
 .right-text {
@@ -79,5 +90,5 @@ ion-item {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  text-align: right !important;
+  text-align: right ;
 }
