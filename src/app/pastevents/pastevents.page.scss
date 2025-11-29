@@ -126,3 +126,23 @@ ion-item {
   white-space: normal;
 }
 
+/* Left column */
+.row-left {
+  flex: 1;
+  color: green;
+  font-weight: 500;
+  text-align: left;
+  white-space: normal;
+}
+
+/* Right column */
+.row-right {
+  flex: 1;
+  color: green;
+  font-weight: 500;
+  text-align: right;
+  white-space: normal;
+  display: flex;
+  justify-content: flex-end;
+}
+
