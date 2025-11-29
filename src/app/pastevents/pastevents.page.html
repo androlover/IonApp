@@ -11,16 +11,23 @@
     <div class="col-right"><strong>Rewards</strong></div>
   </div>
 
-  <ion-list>
-  <ion-item *ngFor="let item of winningsList">
-  <ion-label class="left-label">
-    {{ item.userName ? item.userName : 'Guest User' }}
-  </ion-label>
-  <ion-label class="right-label">
-    {{ item.winningDetail }}
-  </ion-label>
-</ion-item>
+<ion-list>
+  <ion-item *ngFor="let item of winningsList" lines="none">
 
-  </ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" class="left-text">
+          {{ item.userName ? item.userName : 'Guest User' }}
+        </ion-col>
+
+        <ion-col size="6" class="right-text">
+          {{ item.winningDetail }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-item>
+</ion-list>
+
 
 </ion-content>

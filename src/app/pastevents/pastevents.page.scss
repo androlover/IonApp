@@ -1,69 +1,54 @@
+/* Center Title */
 .title-center {
   text-align: center;
 }
 
-.row {
+/* Header Row (Username / Reward) */
+.header-row {
   display: flex;
   justify-content: space-between;
   padding: 8px 10px;
-}
-
-.header-row {
   background: #f2f2f2;
   font-size: 16px;
   border-bottom: 1px solid #ddd;
 }
 
-.item-row {
-  font-size: 14px;
-}
-
-.col-left {
-  width: 50%;
-  color: green;
-  text-align: left;
-  font-weight: 500;
-}
-
+.col-left,
 .col-right {
   width: 50%;
-  text-align: right;
-  color: green;
-  font-weight: 500;
+  font-weight: 600;
+  text-align: left;
 }
 
+/* Ion Item Spacing */
+ion-item {
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+
+/* Text inside the winner list */
+.left-text {
+  text-align: left !important;
+  font-weight: 500;
+  color: #008000;
+  display: flex;
+  align-items: center;
+}
+
+.right-text {
+  text-align: right !important;
+  font-weight: 500;
+  color: #008000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Gradient Header Toolbar */
 ion-toolbar[color="my-gradient-header"] {
   background: linear-gradient(90deg, #bf1c56, #ff416c);
-  ion-color-base: transparent;
   color: #fff;
   font-weight: 600;
 }
-
-ion-item {
-  --padding-start: 0;
-  --padding-start: 12px;   
-  --inner-padding-end: 12px; 
-}
-
-ion-item .item-inner {
-  padding-right: 0 !important;
-}
-
-ion-item .row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.left-label {
-  text-align: left;
-  color: rgb(223, 231, 223);
-  font-weight: 500;
-}
-
-.right-label {
-  margin-left: auto;
-  text-align: right;
-  color: rgb(242, 248, 242);
-  font-weight: 500;
-}
-
