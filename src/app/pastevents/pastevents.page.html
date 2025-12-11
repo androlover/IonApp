@@ -15,15 +15,18 @@
   <ng-container *ngFor="let item of winningsList; let i = index">
 
     <!-- Row -->
-    <ion-item lines="none" class="winner-row">
-      <div class="row-left">
-        {{ item.userName ? item.userName : 'Guest User' }}
-      </div>
+ <ion-item lines="none" class="winner-row">
+  <div class="item-row">
+    <div class="row-left">
+      {{ item.userName ? item.userName : 'Guest User' }}
+    </div>
 
-      <div class="row-right">
-        {{ item.winningDetail }}
-      </div>
-    </ion-item>
+    <div class="row-right">
+      {{ item.winningDetail }}
+    </div>
+  </div>
+</ion-item>
+
 
     <!-- Line Divider -->
     <div class="line-divider" *ngIf="i < winningsList.length - 1"></div>
