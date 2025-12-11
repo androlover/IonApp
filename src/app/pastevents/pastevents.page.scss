@@ -164,8 +164,9 @@ ion-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;      /* ⭐ important: long text niche shift hoga */
   width: 100%;
+  padding: 10px 15px;
 }
 
 /* Left side – Username */
@@ -174,16 +175,22 @@ ion-item {
   text-align: left;
   color: green;
   font-weight: 500;
-  white-space: nowrap;
+  white-space: normal;          /* ⭐ allow wrapping */
+  word-break: break-word;
 }
 
 /* Right side – Rewards */
 .row-right {
   flex: 1;
-  text-align: right;
-  color: rgb(255, 47, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* ⭐ Center horizontally */
+  justify-content: center; /* ⭐ Center vertically if multi-line */
+  text-align: center;      /* ⭐ Text center */
+  color: rgb(255, 136, 0);
   font-weight: 500;
-  white-space: nowrap;
+  white-space: normal;     
+  word-break: break-word;
 }
 
 
